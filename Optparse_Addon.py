@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-A little imporvement over the optparse module. 
+Some imporvements over the optparse module. The first part is to process unknown options; the second part is to process single dash long name.
 """
 
 from optparse import (OptionParser,BadOptionError,AmbiguousOptionError)
@@ -59,8 +59,12 @@ def long_option_dash_2to1(args):
 # main function
 def main(argv):
     """A main function to implement the enhanced optparse_addon
-    function. The unknown options are passed to linux bash find
+    function. The function try to find job.info file in all the
+    folders. The unknown options are passed to linux bash find
     function.
+
+    I want to enforce a default vaule to -maxdepth option. I have to
+    intercept the parser's help message.
 
     """
     # logger
@@ -69,10 +73,11 @@ def main(argv):
 
     str1='Usage: %prog <dir> '
     str2='-maxdepth <int> '
-    str4='This function read out job.info files.'
+    str4='This function try to find job.info files and process them.'
     str5='It passes the unknown options to find function.'
     parser = PassThroughOptionParser(usage=str1+str2,
-                                     description=str4+str5)
+                                     description=str4+str5,
+                    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     # parser = OptionParser()
     # convert args help 
     # if args.help:
@@ -93,6 +98,10 @@ def main(argv):
 
     parser.add_option("-c", "--count",type=int, default=0,
                       help="Demonstrate the longest jobs.")
+
+
+    parser.add_option("--maxdepth",type=int, default=1,
+                      help="maximum search depth, default is 1")
 
 
     sargs=long_option_dash_1to2(argv)

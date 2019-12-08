@@ -8,13 +8,13 @@ Welcome to MKJob_GD_Matlab's documentation!
 
 Optparse_Addon module
 -------------------------------
-.. automodule:: MKJob_GD_Matlab.Optparse_Addon
+.. automodule:: Count_GD.Optparse_Addon
          :members:
 
 
 count_GD_finished module
 ----------------------------------------------------------------
-.. automodule:: MKJob_GD_Matlab.count_GD_finished
+.. automodule:: Count_GD.count_GD_finished
          :members:
 
 

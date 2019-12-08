@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-""" Count the number of simulations finined in a folder. 
+""" Count the number of GD-Calc simulations finined in a folder. 
 
 """
 import os,glob,sys
@@ -7,7 +7,7 @@ import re
 import fnmatch
 import subprocess
 sys.path.append("/Users/wdai11/python-study")
-from  MKJob_GD_Matlab.Optparse_Addon import *
+from  Count_GD.Optparse_Addon import *
 
 
 #########################
@@ -100,6 +100,13 @@ def process_a_folder(folders):
         print('{} jobs to do, {} finished'.format(jobs_todo,jobs_done))
     else:
         print('All {} the simulations are finished'.format(jobs_done))
+
+#######################
+# main function
+def main():
+    
+
+
 
 #########################
 if __name__=='__main__':
