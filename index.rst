@@ -6,9 +6,9 @@ Welcome to MKJob_GD_Matlab's documentation!
    :caption: Contents:
 
 
-Optparse_Addon module
+Aptparse_Addon module
 -------------------------------
-.. automodule:: Count_GD.Optparse_Addon
+.. automodule:: Count_GD.Argparse_Addon
          :members:
 
 

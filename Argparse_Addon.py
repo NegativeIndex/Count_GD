@@ -3,34 +3,12 @@
 Some imporvements over the optparse module. The first part is to process unknown options; the second part is to process single dash long name.
 """
 
-from optparse import (OptionParser,BadOptionError,AmbiguousOptionError)
+import argparse 
 import logging
 import sys,subprocess,os,re
-##############################
-# a wrapped class which passes all unknown option to args
-class PassThroughOptionParser(OptionParser):
-    """
-    An unknown option pass-through implementation of OptionParser.
 
-    When unknown arguments are encountered, bundle with largs and try again,
-    until rargs is depleted.  
-
-    sys.exit(status) will still be called if a known argument is passed
-    incorrectly (e.g. missing arguments or bad argument types, etc.) 
-
-    Usage ::
-
-        from optparse import (OptionParser,BadOptionError,AmbiguousOptionError)
-        parser=PassThroughOptionParser(usage=usage,description=description)
-        (opts,unk_args) = parser.parse_args(sargs)
-    """
-    def _process_args(self, largs, rargs, values):
-        while rargs:
-            try:
-                OptionParser._process_args(self,largs,rargs,values)
-            except (BadOptionError,AmbiguousOptionError) as e:
-                largs.append(e.opt_str)
-
+############################
+####
 ## convert long option with single dash to two dashes
 def long_option_dash_1to2(args):
     """
