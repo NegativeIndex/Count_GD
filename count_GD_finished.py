@@ -1,11 +1,11 @@
 #!/usr/bin/env python
-""" Count the number of GD-Calc simulations finined in a folder. 
+""" Count the number of GD-Calc simulations finined in selected folders. 
 
 """
 import os,glob,sys
 import re
 import fnmatch
-import subprocess
+import subprocess,logging
 sys.path.append("/Users/wdai11/python-study")
 from  Count_GD.Argparse_Addon import *
 
@@ -28,7 +28,7 @@ def read_fb_file(fb_fname):
     Returns
     -----------
     int
-      The number of simulaitons.
+      The number of simulaitons; None if failed
 
     """
     n_sim=None
@@ -44,6 +44,10 @@ def read_fb_files():
     """Find fb files in current folder and return the total number of
     simulations coverd by the current folder.
 
+    Returns
+    -----------
+    int
+      The number of simulaitons coved by the current folder; None if failed
     """
     n_sim=None
     fb_fname=glob.glob('fb*txt')
@@ -56,81 +60,198 @@ def read_fb_files():
             
 #########################
 def check_RawData():
-    n_finished=None
+    """Count finished jobs in the current folder.
+
+    Returns
+    -----------
+    int
+      The number of finished simulaitons; 0 if failed
+    """
+
+    n_finished=0
     if os.path.isdir("RawData"):
         # n_finished=int(len(glob.glob("RawData/*.txt"))/3)
         n_finished=len(fnmatch.filter(os.listdir('RawData'),'*.txt'))/3
         n_finished=int(n_finished)
         # print(n_finished)
     return n_finished
-    
-def process_a_folder(folders):
+
+#########################    
+def process_folders(folders,args):
+    """Count finished jobs in the current folder.
+
+    Parameters
+    -----------
+    folders:string list
+      a list of folders which should contain simulations
+    args: name space
+      command line options
+
+    Returns
+    -----------
+    No return
+      Print the output on the screen based on args
+    """    
     # print(path)
     # folders=[os.path.abspath(x[0]) for x in os.walk(path)]
     folders.sort()
     folders=[os.path.abspath(folder) for folder in folders]
-    [print(folder) for folder in folders]
-    print('Total folders is {}'.format(len(folders)))
-    sys.stdout.flush()
+    # print all the folders
+    # [print(folder) for folder in folders]
+    n_folder=len(folders)
+    # print('Number of selected folders is {}'.format(n_folder))
+
+    # sys.stdout.flush()
+    n_fb=0  # number of folders with valud fb files
+    n_finished=0 # number of finished folders
     jobs_todo=0
     jobs_done=0
+    rpath=os.getcwd()
+    # print switch
+    opts=(args.bad, args.unfinished, args.finished)
+    opts=list(opt or args.all for opt in opts)
+    
     for folder in folders:
         os.chdir(folder)
         sys.stdout.flush()	
  
-        n_sim=read_fb_files()
-        n_finished=check_RawData()
-        if (n_sim is not None) and (n_finished is not None):
+        cn_sim=read_fb_files()
+        cn_finished=check_RawData()
+        cpath=os.getcwd()
+        os.chdir(rpath)
+ 
+        # tags
+        tags=(True,False,False)
+        desc="No valid fb files"
+
+        if (cn_sim is not None) :
+            tags=(False,True,False)
+            desc='{}/{} is done'.format(cn_finished,cn_sim)
             # print('-'*30)
             # print(os.getcwd())
-            if (n_finished==n_sim):
-                # print('{}/{}; Finished'.format(n_finished,n_sim))
-                jobs_done+=n_finished
-                jobs_todo+=n_sim-n_finished
-            else:
-                print('-'*30)
-                print(os.getcwd())
-                print('{}/{}'.format(n_finished,n_sim))
-                jobs_done+=n_finished
-                jobs_todo+=n_sim-n_finished
-            sys.stdout.flush()
-                
+            n_fb+=1
+            jobs_done+=cn_finished
+            jobs_todo+=cn_sim-cn_finished
+            if (cn_finished==cn_sim):
+                n_finished+=1
+                tags=(False,False,True)
+                desc='{}/{}; ALL DONE'.format(cn_finished,cn_sim)
+            
+        # print folder based on args
+        if any(x and y for x,y in zip(opts,tags)):
+            print('-'*30)
+            print(cpath)
+            print(desc)
+    # always print summary
     print('='*30)
+    print('{} folder selected; {} valid folders; {} finished'.format(
+        n_folder,n_fb,n_finished))
     if jobs_todo>0:
-        print('{} jobs to do, {} finished'.format(jobs_todo,jobs_done))
+        print('{:,} jobs to do, {:,} finished'.format(jobs_todo,jobs_done))
     else:
-        print('All {} the simulations are finished'.format(jobs_done))
+        print('All {:,} the simulations are finished'.format(jobs_done))
 
 #######################
 # main function
-def main():
-    pass
+def main(argv):
+    """The main function to find the simulation folders and count the
+    finished jobs.
 
+    I have to enforce a default vaule to -maxdepth option since the
+    simulation folders contain too many small files.
+
+    optional arguments:
+
+      -p [PATH [PATH ...]], --path [PATH [PATH ...]]
+                          Searching paths
+
+      -b, --bad             Print the folders without a valid fb file.
+      -u, --unfinished      Print the unfinished folders.
+      -f, --finished        Print the finished folders.
+      -a, --all             Print all the selected folders; 
+                            equivalent to ``-buf``.
+      -h, --help            Show this message and quit
+
+    optional arguments:
+
+      ``-maxdepth MAXDEPTH``   maximum search depth, default is 1
+
+      All other long names with single dash will be passed to bash find command.
+
+
+    """   
+    # logger
+    logging.basicConfig(level=logging.DEBUG,
+                        format='%(levelname)s: %(message)s')
+    # main function
+    str4='This function findd the simulation folders'
+    str5=' and count the finished jobs.'
+    parser=argparse.ArgumentParser(add_help=False,
+                                   description='\n'.join((str4,str5)) )
+    
+    # add some options
+    parser.add_argument("-p","--path",
+                      default=['./',], nargs='*',
+                      help="Searching paths")
+
+    parser.add_argument("-b", "--bad",
+                      action="store_true",
+                      default=False,
+                      help="Print the folders without a valid fb file.")
+
+    parser.add_argument("-u", "--unfinished",
+                      action="store_true",
+                      default=False,
+                      help="Print the unfinished folders.")
+
+    parser.add_argument("-f", "--finished",
+                      action="store_true",
+                      default=False,
+                      help="Print the finished folders.")
+
+    parser.add_argument("-a", "--all",
+                      action="store_true",
+                      default=False,
+                      help="Print all the selected folders.")
+
+
+    parser.add_argument("--maxdepth",type=int, default=1,
+                      help="maximum search depth, default is 1")
+
+    parser.add_argument('-h', '--help', 
+                        help='Show this message and quit', 
+                        action='count')
+
+    ## process unknown options
+    argv.pop(0)  # remove the first, command name
+    # logging.debug("Before process are {}".format(argv))
+    sargs=long_option_dash_1to2(argv)
+    args,unk_args=parser.parse_known_args(sargs)
+    unk_args=long_option_dash_2to1(unk_args)
+
+    if args.help:
+        help_string = parser.format_help()
+        sentences=('  All other long names with single dash '+
+            'will be passed to bash find command.', )
+        help_string=modify_help_string(help_string,('maxdepth',),
+                                       sentences)
+        print(help_string)
+        parser.exit(0)
+    
+    # find the folders to check
+    comm=["find"]+args.path+['-maxdepth',str(args.maxdepth)]\
+        +unk_args+['-type','d']
+    res = subprocess.check_output(comm).decode("ascii").rstrip()
+    # print(args)
+    folders=res.split('\n')
+    # for folder in folders:
+    #     logging.debug(folder)
+    process_folders(folders,args)
 
 
 #########################
 if __name__=='__main__':
+    main(sys.argv)
 
-    # main function
-    str1='Usage: %prog <dir> '
-    str2='-maxdepth <int> '
-    str3='-name <string'
-    str4='This function passes all the options to find function '
-    str5='to list all appropriate folders.'
-    parser = PassThroughOptionParser(usage=str1+str2+str3,
-                                     description=str4+str5)
-    # parser = OptionParser()
-    sargs=sys.argv
-    (options,args) = parser.parse_args()
-    # print(options)
-    # print(args)
-    # print(sargs)
-    
-    # find all the folders which contains simulations
-    comm=["find"]+sargs[1:]+['-type','d']
-    res = subprocess.check_output(comm).decode("ascii").rstrip()
-    # print(args)
-    folders=res.split('\n')
-    process_a_folder(folders)
 
 
