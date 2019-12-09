@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="generator" content="Docutils 0.15.2: http://docutils.sourceforge.net/" />
+<title>README.rst</title>
+<style type="text/css">
+
+/* Minimal style sheet for the HTML output of Docutils.                    */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: minimal.css 8216 2018-06-05 13:37:44Z milde $               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*                                                                         */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+
+/* This CSS2.1_ stylesheet defines rules for Docutils elements without    */
+/* HTML equivalent. It is required to make the document semantic visible. */
+/*                                                                        */
+/* .. _CSS2.1: http://www.w3.org/TR/CSS2                                  */
+/* .. _validates: http://jigsaw.w3.org/css-validator/validator$link       */
+
+/* alignment of text and inline objects inside block objects*/
+.align-left   { text-align: left; }
+.align-right  { text-align: right; }
+.align-center { clear: both; text-align: center; }
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
+
+/* titles */
+h1.title, p.subtitle {
+  text-align: center;
+}
+p.admonition-title,
+p.topic-title,
+p.sidebar-title,
+p.rubric,
+p.system-message-title {
+  font-weight: bold;
+}
+h1 + p.subtitle,
+h1 + p.section-subtitle {
+  font-size: 1.6em;
+}
+h2 + p.section-subtitle { font-size: 1.28em; }
+p.subtitle,
+p.section-subtitle,
+p.sidebar-subtitle {
+  font-weight: bold;
+  margin-top: -0.5em;
+}
+p.sidebar-title,
+p.rubric {
+  font-size: larger;
+}
+p.rubric { color: maroon; }
+a.toc-backref {
+  color: black;
+  text-decoration: none; }
+
+/* Warnings, Errors */
+div.caution p.admonition-title,
+div.attention p.admonition-title,
+div.danger p.admonition-title,
+div.error p.admonition-title,
+div.warning p.admonition-title,
+div.system-messages h1,
+div.error,
+span.problematic,
+p.system-message-title {
+  color: red;
+}
+
+/* inline literals */
+span.docutils.literal {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+/* do not wraph at hyphens and similar: */
+.literal > span.pre { white-space: nowrap; }
+
+/* Lists */
+
+/* compact and simple lists: no margin between items */
+.simple  li, .compact li,
+.simple  ul, .compact ul,
+.simple  ol, .compact ol,
+.simple > li p, .compact > li p,
+dl.simple > dd, dl.compact > dd {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Table of Contents */
+div.topic.contents { margin: 0; }
+div.topic.contents ul {
+  list-style-type: none;
+  padding-left: 1.5em;
+}
+
+/* Enumerated Lists */
+ol.arabic     { list-style: decimal }
+ol.loweralpha { list-style: lower-alpha }
+ol.upperalpha { list-style: upper-alpha }
+ol.lowerroman { list-style: lower-roman }
+ol.upperroman { list-style: upper-roman }
+
+dt span.classifier { font-style: italic }
+dt span.classifier:before {
+  font-style: normal;
+  margin: 0.5em;
+  content: ":";
+}
+
+/* Field Lists and drivatives */
+/* bold field name, content starts on the same line */
+dl.field-list > dt,
+dl.option-list > dt,
+dl.docinfo > dt,
+dl.footnote > dt,
+dl.citation > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5em;
+}
+/* Offset for field content (corresponds to the --field-name-limit option) */
+dl.field-list > dd,
+dl.option-list > dd,
+dl.docinfo > dd {
+  margin-left:  9em; /* ca. 14 chars in the test examples */
+}
+/* start field-body on a new line after long field names */
+dl.field-list > dd > *:first-child,
+dl.option-list > dd > *:first-child
+{
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+}
+/* field names followed by a colon */
+dl.field-list > dt:after,
+dl.docinfo > dt:after {
+  content: ":";
+}
+
+/* Bibliographic Fields (docinfo) */
+pre.address { font: inherit; }
+dd.authors > p { margin: 0; }
+
+/* Option Lists */
+dl.option-list { margin-left: 40px; }
+dl.option-list > dt { font-weight: normal; }
+span.option { white-space: nowrap; }
+
+/* Footnotes and Citations  */
+dl.footnote.superscript > dd {margin-left: 1em; }
+dl.footnote.brackets > dd {margin-left: 2em; }
+dl > dt.label { font-weight: normal; }
+a.footnote-reference.brackets:before,
+dt.label > span.brackets:before { content: "["; }
+a.footnote-reference.brackets:after,
+dt.label > span.brackets:after { content: "]"; }
+a.footnote-reference.superscript,
+dl.footnote.superscript > dt.label {
+  vertical-align: super;
+  font-size: smaller;
+}
+dt.label > span.fn-backref { margin-left: 0.2em; }
+dt.label > span.fn-backref > a { font-style: italic; }
+
+/* Line Blocks */
+div.line-block { display: block; }
+div.line-block div.line-block {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 40px;
+}
+
+/* Figures, Images, and Tables */
+.figure.align-left,
+img.align-left,
+object.align-left,
+table.align-left {
+  margin-right: auto;
+}
+.figure.align-center,
+img.align-center,
+object.align-center {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.figure.align-right,
+img.align-right,
+object.align-right,
+table.align-right {
+  margin-left: auto;
+}
+/* reset inner alignment in figures and tables */
+/* div.align-left, div.align-center, div.align-right, */
+table.align-left, table.align-center, table.align-right
+{ text-align: inherit }
+
+/* Admonitions and System Messages */
+div.admonition,
+div.system-message,
+div.sidebar{
+  margin: 40px;
+  border: medium outset;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+/* Sidebar */
+div.sidebar {
+  width: 30%;
+  max-width: 26em;
+  float: right;
+  clear: right;
+}
+
+/* Text Blocks */
+blockquote,
+div.topic,
+pre.literal-block,
+pre.doctest-block,
+pre.math,
+pre.code {
+  margin-left: 1.5em;
+  margin-right: 1.5em
+}
+pre.code .ln { color: gray; } /* line numbers */
+
+/* Tables */
+table { border-collapse: collapse; }
+td, th {
+  border-style: solid;
+  border-color: silver;
+  padding: 0 1ex;
+  border-width: thin;
+}
+td > p:first-child, th > p:first-child { margin-top: 0; }
+td > p, th > p { margin-bottom: 0; }
+
+table > caption {
+  text-align: left;
+  margin-bottom: 0.25em
+}
+
+table.borderless td, table.borderless th {
+  border: 0;
+  padding: 0;
+  padding-right: 0.5em /* separate table cells */
+}
+
+</style>
+<style type="text/css">
+
+/* CSS31_ style sheet for the output of Docutils HTML writers.             */
+/* Rules for easy reading and pre-defined style variants.		   */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: plain.css 8229 2018-11-20 17:47:12Z milde $               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*    	     	      	     	 					   */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+/* .. _CSS3: http://www.w3.org/TR/CSS3		        		   */
+
+
+/* Document Structure */
+/* ****************** */
+
+/* "page layout" */
+body {
+  margin: 0;
+  background-color: #dbdbdb;
+}
+div.document {
+  line-height:1.3;
+  counter-reset: table;
+  /* counter-reset: figure; */
+  /* avoid long lines --> better reading */
+  /* OTOH: lines should not be too short because of missing hyphenation, */
+  max-width: 50em;
+  padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
+  margin: auto;
+  background-color: white;
+}
+
+/* Sections */
+
+/* Transitions */
+
+hr.docutils {
+  width: 80%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  clear: both;
+}
+
+/* Paragraphs               */
+/* ==========               */
+
+/* vertical space (parskip) */
+p, ol, ul, dl,
+div.line-block,
+table{
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+h1, h2, h3, h4, h5, h6,
+dl > dd {
+  margin-bottom: 0.5em;
+}
+
+/* Lists                    */
+/* ==========               */
+
+/* Definition Lists         */
+
+dl > dd > p:first-child { margin-top: 0; }
+/* :last-child is not part of CSS 2.1 (introduced in CSS 3) */
+dl > dd > p:last-child  { margin-bottom: 0; }
+
+/* lists nested in definition lists */
+/* :only-child is not part of CSS 2.1 (introduced in CSS 3) */
+dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
+
+/* Description Lists */
+/* styled like in most dictionaries, encyclopedias etc. */
+dl.description > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.5em;
+}
+
+/* Field Lists */
+
+/* example for custom field-name width */
+dl.field-list.narrow > dd {
+  margin-left: 5em;
+}
+/* run-in: start field-body on same line after long field names */
+dl.field-list.run-in > dd p {
+  display: block;
+}
+
+/* Bibliographic Fields */
+
+/* generally, bibliographic fields use special definition list dl.docinfo */
+/* but dedication and abstract are placed into "topic" divs */
+div.abstract p.topic-title {
+  text-align: center;
+}
+div.dedication {
+  margin: 2em 5em;
+  text-align: center;
+  font-style: italic;
+}
+div.dedication p.topic-title {
+  font-style: normal;
+}
+
+/* Citations */
+dl.citation dt.label {
+  font-weight: bold;
+}
+span.fn-backref {
+  font-weight: normal;
+}
+
+/* Text Blocks           */
+/* ============          */
+
+/* Literal Blocks           */
+
+/* Block Quotes             */
+
+blockquote > table,
+div.topic > table {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+blockquote p.attribution,
+div.topic p.attribution {
+  text-align: right;
+  margin-left: 20%;
+}
+
+/* Tables                   */
+/* ======                   */
+
+/* th { vertical-align: bottom; } */
+
+table tr { text-align: left; }
+
+/* "booktabs" style (no vertical lines) */
+table.booktabs {
+  border: 0;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.booktabs * {
+  border: 0;
+}
+table.booktabs th {
+  border-bottom: thin solid;
+}
+
+/* numbered tables (counter defined in div.document) */
+table.numbered > caption:before {
+  counter-increment: table;
+  content: "Table " counter(table) ": ";
+  font-weight: bold;
+}
+
+/* Explicit Markup Blocks   */
+/* ======================   */
+
+/* Footnotes and Citations  */
+/* -----------------------  */
+
+/* line on the left */
+dl.footnote {
+  padding-left: 1ex;
+  border-left: solid;
+  border-left-width: thin;
+}
+
+/* Directives               */
+/* ----------               */
+
+/* Body Elements            */
+/* ~~~~~~~~~~~~~            */
+
+/* Images and Figures */
+
+/* let content flow to the side of aligned images and figures */
+.figure.align-left,
+img.align-left,
+object.align-left {
+  display: block;
+  clear: left;
+  float: left;
+  margin-right: 1em
+}
+.figure.align-right,
+img.align-right,
+object.align-right {
+  display: block;
+  clear: right;
+  float: right;
+  margin-left: 1em
+}
+/* Stop floating sidebars, images and figures at section level 1,2,3 */
+h1, h2, h3 { clear: both; }
+
+/* Sidebar */
+
+/* Move into the margin. In a layout with fixed margins, */
+/* it can be moved into the margin completely.		 */
+div.sidebar {
+  width: 30%;
+  max-width: 26em;
+  margin-left: 1em;
+  margin-right: -5.5%;
+  background-color: #ffffee ;
+}
+
+/* Code                     */
+
+pre.code { padding: 0.7ex }
+pre.code, code { background-color: #eeeeee }
+pre.code .ln { color: gray; } /* line numbers */
+/* basic highlighting: for a complete scheme, see */
+/* http://docutils.sourceforge.net/sandbox/stylesheets/ */
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+/* Math                     */
+/* styled separately (see math.css for math-output=HTML) */
+
+/* Epigraph                 */
+/* Highlights               */
+/* Pull-Quote               */
+/* Compound Paragraph       */
+/* Container                */
+
+/* can be styled in a custom stylesheet */
+
+/* Document Header and Footer */
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller;
+}
+
+/* Inline Markup            */
+/* =============            */
+
+/* Emphasis                 */
+/*   em                     */
+/* Strong Emphasis          */
+/*   strong		    */
+/* Interpreted Text         */
+/*   span.interpreted  	    */
+/* Title Reference 	    */
+/*   cite		    */
+/* Inline Literals          */
+/* possible values: normal, nowrap, pre, pre-wrap, pre-line */
+/*   span.docutils.literal { white-space: pre-wrap; } */
+
+/* Hyperlink References     */
+a { text-decoration: none; }
+
+/* External Targets         */
+/*   span.target.external   */
+/* Internal Targets  	    */
+/*   span.target.internal   */
+/* Footnote References      */
+/*   a.footnote-reference   */
+/* Citation References      */
+/*   a.citation-reference   */
+
+</style>
+</head>
+<body>
+<div class="document">
+
+
+<div class="section" id="count-gd">
+<h1>Count_GD</h1>
+</div>
+<div class="section" id="description">
+<h1>Description</h1>
+<p>GD-Calc is a Matlab based electromagnetic simulation package
+implemented RCWA algorithm. The folder tree of a project is shown below.</p>
+<pre class="literal-block">project
+├── A1
+│   ├── run.m
+│   ├── fb.txt
+│   └── RawData
+│       └── *.txt
+├── A2
+│   ├── run.m
+│   ├── fb.txt
+│   └── RawData
+│       └── *.txt</pre>
+<p>I have to investigate a large parameter space. I divide the project
+into several folders (A1, A2, etc.). Each folder covers a portion of
+the parameter space and they are independent from each other. So I can
+run these folders in parallel.</p>
+<p>Inside one folder, <em>run.m</em> is the matlab script, which runs
+simulations in series. At the beginning, the script will calculate the
+number of simulations covered in this folder and save the information
+in the feedback files (<em>fb.txt</em>). Each simulation will generate three
+text files (reflection, transmission and absorption) saved in the
+<em>RawData</em> folder.</p>
+<p>The difficulties in this program is that there are many small files in
+<em>RawData</em> folders. So it will be very slow to use a simple <em>find</em>
+command. I have to enforce the <span class="docutils literal"><span class="pre">-maxdepth</span></span> option. The <em>find</em>
+command has the long option name with single dash. This is different
+from the argparse module setting. Most part of the program is to try
+to transfer the abnormal options to find command.</p>
+<div class="section" id="examples">
+<h2>Examples</h2>
+<pre class="code bash literal-block"><code>count_GD_finished.py -name <span class="literal string double">&quot;A*&quot;</span> -u</code></pre>
+<p>Running the command at <em>project</em> folder will demonstrate the folders
+with unfinished simulaitons.</p>
+<pre class="code bash literal-block"><code>count_GD_finished.py -p A1 -a</code></pre>
+<p>Running the command at <em>project</em> folder will demonstrate the
+information about the <em>A1</em> folder.</p>
+</div>
+</div>
+<div class="section" id="argparse-addon-module">
+<h1>Argparse_Addon module</h1>
+<p>Some improvements over the argparse module. I want long option names
+with a single dash.</p>
+<dl>
+<dt><span class="docutils literal">Count_GD.Argparse_Addon.long_option_dash_1to2(args)</span></dt>
+<dd><p>Change the single-dash in front of a long option back to double-
+dash.</p>
+</dd>
+<dt><span class="docutils literal">Count_GD.Argparse_Addon.long_option_dash_2to1(args)</span></dt>
+<dd><p>Change the double-dash in front of a long option to single-dash.</p>
+</dd>
+<dt><span class="docutils literal">Count_GD.Argparse_Addon.main(argv)</span></dt>
+<dd><p>The main function to demonstrate the function of Argparse_Addon
+module. The function try to find some files and process them. The
+unknown options are passed to Linux bash find function.</p>
+<p>I want to enforce a default value to -maxdepth option. I have to
+intercept the parser's help message.</p>
+<dl>
+<dt>Usage:</dt>
+<dd><p><span class="docutils literal">Argparse_Addon.py <span class="pre">[-p</span> [PATH [PATH <span class="pre">...]]]</span> <span class="pre">[-s]</span> <span class="pre">[-maxdepth</span> MAXDEPTH] <span class="pre">[-h]</span></span></p>
+</dd>
+<dt>optional arguments:</dt>
+<dd><dl class="simple">
+<dt><span class="docutils literal"><span class="pre">-p</span> [PATH [PATH <span class="pre">...]],</span> <span class="pre">--path</span> [PATH [PATH <span class="pre">...]]</span></span></dt>
+<dd><p>Searching paths</p>
+</dd>
+</dl>
+<p><span class="docutils literal"><span class="pre">-s,</span> <span class="pre">--summary</span></span> : Demonstrate only summary</p>
+<p><span class="docutils literal"><span class="pre">-h,</span> <span class="pre">--help</span></span> : Show this message and quit</p>
+</dd>
+<dt>option modification:</dt>
+<dd><p><span class="docutils literal"><span class="pre">-maxdepth</span> MAXDEPTH</span> : maximum search depth, default is 1</p>
+<p>All other long names with single dash will be passed to bash
+find command.</p>
+</dd>
+</dl>
+</dd>
+<dt><span class="docutils literal">Count_GD.Argparse_Addon.modify_help_string(help_string, longnames=None, sentences=None)</span></dt>
+<dd><p>Modify the help_string. It receive a help_string, changes the
+double dash in front of some names to single dash, and add some
+sentences at the end.</p>
+<dl class="simple">
+<dt>Parameters:</dt>
+<dd><ul class="simple">
+<li><p><strong>help_string</strong> (<em>string</em>) -- the string return by
+parser.format_help()</p></li>
+<li><p><strong>longnames</strong> (<em>string list</em>) -- The names with single dash</p></li>
+<li><p><strong>sentences</strong> (<em>string list</em>) -- The sentences added at the
+end</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><p>The new version of help string</p>
+</dd>
+<dt>Return type:</dt>
+<dd><p>string</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div>
+<div class="section" id="count-gd-finished-module">
+<h1>count_GD_finished module</h1>
+<p>Count the number of GD-Calc simulations finished in selected folders.</p>
+<dl>
+<dt><span class="docutils literal">Count_GD.count_GD_finished.check_RawData()</span></dt>
+<dd><p>Count finished jobs in the current folder.</p>
+<dl class="simple">
+<dt>Returns:</dt>
+<dd><p>The number of finished simulations; 0 if failed</p>
+</dd>
+<dt>Return type:</dt>
+<dd><p>int</p>
+</dd>
+</dl>
+</dd>
+<dt><span class="docutils literal">Count_GD.count_GD_finished.main(argv)</span></dt>
+<dd><p>The main function to find the simulation folders and count the
+finished jobs.</p>
+<p>I have to enforce a default value to -maxdepth option since the
+simulation folders contain too many small files.</p>
+<dl>
+<dt>optional arguments:</dt>
+<dd><p><span class="docutils literal"><span class="pre">-p</span> [PATH [PATH <span class="pre">...]],</span> <span class="pre">--path</span> [PATH [PATH <span class="pre">...]]</span></span> :     Searching paths</p>
+<p><span class="docutils literal"><span class="pre">-b,</span> <span class="pre">--bad</span></span> :    Print the folders without a valid fb file.</p>
+<p><span class="docutils literal"><span class="pre">-u,</span> <span class="pre">--unfinished</span></span> :   Print the unfinished folders.</p>
+<p><span class="docutils literal"><span class="pre">-f,</span> <span class="pre">--finished</span></span> :    Print the finished folders.</p>
+<p><span class="docutils literal"><span class="pre">-a,</span> <span class="pre">--all</span></span> :         Print all the selected folders; equivalent to &quot;-b -u -f&quot;.</p>
+<p><span class="docutils literal"><span class="pre">-h,</span> <span class="pre">--help</span></span> :       Show this message and quit</p>
+</dd>
+<dt>optional arguments:</dt>
+<dd><p><span class="docutils literal"><span class="pre">-maxdepth</span> MAXDEPTH</span> :   maximum search depth, default is 1</p>
+<p>All other long names with single dash will be passed to bash
+find command.</p>
+</dd>
+</dl>
+</dd>
+<dt><span class="docutils literal">Count_GD.count_GD_finished.process_folders(folders, args)</span></dt>
+<dd><p>Count finished jobs in the current folder.</p>
+<dl class="simple">
+<dt>Parameters:</dt>
+<dd><ul class="simple">
+<li><p><strong>folders</strong> (<em>string list</em>) -- a list of folders which
+should contain simulations</p></li>
+<li><p><strong>args</strong> (<em>name space</em>) -- command line options</p></li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd><p>Print the output on the screen based on args</p>
+</dd>
+<dt>Return type:</dt>
+<dd><p>No return</p>
+</dd>
+</dl>
+</dd>
+<dt><span class="docutils literal">Count_GD.count_GD_finished.read_fb_file(fb_fname)</span></dt>
+<dd><p>Return the total number of simulations covered by the folder from a
+fb file.</p>
+<p>The actual simulation is written by Matlab. The first part of the
+simulation code is to provide the total number of simulations the
+code will calculate. The function read the output the retrieve the
+information.</p>
+<dl class="simple">
+<dt>Parameters:</dt>
+<dd><p><strong>fb_name</strong> (<em>string</em>) -- the name of a fb.*txt file</p>
+</dd>
+<dt>Returns:</dt>
+<dd><p>The number of simulations; None if failed</p>
+</dd>
+<dt>Return type:</dt>
+<dd><p>int</p>
+</dd>
+</dl>
+</dd>
+<dt><span class="docutils literal">Count_GD.count_GD_finished.read_fb_files()</span></dt>
+<dd><p>Find fb files in current folder and return the total number of
+simulations covered by the current folder.</p>
+<dl class="simple">
+<dt>Returns:</dt>
+<dd><p>The number of simulations covered by the current folder; None if
+failed</p>
+</dd>
+<dt>Return type:</dt>
+<dd><p>int</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<!-- LocalWords: RawData  Calc fb txt args argv argparse maxdepth longnames py -->
+</div>
+</div>
+</body>
+</html>
