@@ -195,19 +195,22 @@ def main(argv):
                       help="Searching paths")
 
     parser.add_argument("-b", "--bad",
-                      action="store_true",
-                      default=False,
-                      help="Print the folders without a valid fb file.")
+                        action="store_const",
+                        const=True,
+                        default=False,
+                        help="Print the folders without a valid fb file.")
 
     parser.add_argument("-u", "--unfinished",
-                      action="store_true",
-                      default=False,
-                      help="Print the unfinished folders.")
+                        action="store_const",
+                        const=True,
+                        default=False,
+                        help="Print the unfinished folders.")
 
     parser.add_argument("-f", "--finished",
-                      action="store_true",
-                      default=False,
-                      help="Print the finished folders.")
+                        action="store_const",
+                        const=True,
+                        default=False,
+                        help="Print the finished folders.")
 
     parser.add_argument("-a", "--all",
                       action="store_true",
