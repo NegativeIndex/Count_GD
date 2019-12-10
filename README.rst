@@ -3,6 +3,7 @@ Count_GD
 
 Description
 ===========
+A simple Python code to count the finished GD-Calc simulaitons.
 
 GD-Calc is a Matlab based electromagnetic simulation package
 implemented RCWA algorithm. The folder tree of a project is shown below.
