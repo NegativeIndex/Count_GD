@@ -35,10 +35,9 @@ text files (reflection, transmission and absorption) saved in the
 
 The difficulties in this program is that there are many small files in
 *RawData* folders. So it will be very slow to use a simple *find*
-command. I have to enforce the ``-maxdepth`` option. The *find*
-command has the long option name with single dash. This is different
-from the argparse module setting. Most part of the program is to try
-to transfer the abnormal options to find command.
+command. I have to enforce the ``-maxdepth`` option. We can also use
+all the options supported by find command here since all the unknown
+options will be passed find command.
 
 Examples 
 ********************
@@ -48,7 +47,7 @@ Examples
   count_GD_finished.py -name "A*" -u
 
 Running the command at *project* folder will demonstrate the folders
-with unfinished simulaitons.
+with unfinished simulations.
 
 .. code-block:: bash
    
@@ -57,57 +56,17 @@ with unfinished simulaitons.
 Running the command at *project* folder will demonstrate the
 information about the *A1* folder.
 
- 
+count_GD_finished module
+========================
 
-Argparse_Addon module
-=====================
+Count the number of GD-Calc simulations finished in selected folders.
 
-Some improvements over the argparse module. I want long option names
-with a single dash.
-
-
-``Count_GD.Argparse_Addon.long_option_dash_1to2(args)``
-   Change the single-dash in front of a long option back to double-
-   dash.
-
-``Count_GD.Argparse_Addon.long_option_dash_2to1(args)``
-   Change the double-dash in front of a long option to single-dash.
-
-``Count_GD.Argparse_Addon.main(argv)``
-   The main function to demonstrate the function of Argparse_Addon
-   module. The function try to find some files and process them. The
-   unknown options are passed to Linux bash find function.
-
-   I want to enforce a default value to -maxdepth option. I have to
-   intercept the parser's help message.
-
-   Usage: 
-     ``Argparse_Addon.py [-p [PATH [PATH ...]]] [-s] [-maxdepth MAXDEPTH] [-h]``
-
-   optional arguments:
-      ``-p [PATH [PATH ...]], --path [PATH [PATH ...]]``
-         Searching paths
-
-      ``-s, --summary`` : Demonstrate only summary
-
-      ``-h, --help`` : Show this message and quit
-
-   option modification:
-      ``-maxdepth MAXDEPTH`` : maximum search depth, default is 1
-
-      All other long names with single dash will be passed to bash
-      find command.
-
-``Count_GD.Argparse_Addon.modify_help_string(help_string, longnames=None, sentences=None)``
-   Modify the help_string. It receive a help_string, changes the
-   double dash in front of some names to single dash, and add some
-   sentences at the end.
+``Count_GD.count_GD_finished.append_help_string(help_string, sentences=None)``
+   Append sentences at the end of the help_string. 
 
    Parameters:
       * **help_string** (*string*) -- the string return by
         parser.format_help()
-
-      * **longnames** (*string list*) -- The names with single dash
 
       * **sentences** (*string list*) -- The sentences added at the
         end
@@ -118,11 +77,6 @@ with a single dash.
    Return type:
       string
 
-
-count_GD_finished module
-========================
-
-Count the number of GD-Calc simulations finished in selected folders.
 
 ``Count_GD.count_GD_finished.check_RawData()``
    Count finished jobs in the current folder.
@@ -149,18 +103,18 @@ Count the number of GD-Calc simulations finished in selected folders.
 
       ``-f, --finished`` :    Print the finished folders.
 
-      ``-a, --all`` :         Print all the selected folders; equivalent to "-b -u -f".
+      ``-a, --all`` :         Print all the selected folders; equivalent to "-buf".
 
       ``-h, --help`` :       Show this message and quit
 
-   optional arguments:
       ``-maxdepth MAXDEPTH`` :   maximum search depth, default is 1
 
-      All other long names with single dash will be passed to bash
-      find command.
+      All the other unknown options will be passed to bash
+      find command to find the corresponding folders.
 
-``Count_GD.count_GD_finished.process_folders(folders, args)``
-   Count finished jobs in the current folder.
+``Count_GD.count_GD_finished.process_folders(folders, args)`` 
+   Count finished jobs in many folders. Print the results based on
+   commnad line options.
 
    Parameters:
       * **folders** (*string list*) -- a list of folders which

@@ -6,9 +6,33 @@ import os,glob,sys
 import re
 import fnmatch
 import subprocess,logging
-sys.path.append("/Users/wdai11/python-study")
-from  Count_GD.Argparse_Addon import *
+import argparse
 
+# add sentences to help_string
+def append_help_string(help_string, sentences=None):
+    """Add some sentences at the end of the help_string. 
+
+    Parameters
+    -----------
+    help_string : string
+      the string return by parser.format_help()
+    sentences: string list
+      The sentences added at the end
+
+    Returns
+    -----------
+    string
+      The new version of help string
+
+    """
+    if sentences is not None:    
+        help_string.rstrip()
+        help_string=help_string[:-1]
+        for line in sentences:
+            help_string+='\n'+line
+            help_string+='\n'
+
+    return help_string
 
 #########################
 def read_fb_file(fb_fname):
@@ -78,7 +102,8 @@ def check_RawData():
 
 #########################    
 def process_folders(folders,args):
-    """Count finished jobs in the current folder.
+    """Count finished jobs in many folder. Print the results on screen
+    based on the command line options.
 
     Parameters
     -----------
@@ -91,6 +116,7 @@ def process_folders(folders,args):
     -----------
     No return
       Print the output on the screen based on args
+
     """    
     # print(path)
     # folders=[os.path.abspath(x[0]) for x in os.walk(path)]
@@ -172,11 +198,10 @@ def main(argv):
                             equivalent to ``-buf``.
       -h, --help            Show this message and quit
 
-    optional arguments:
+      ``-maxdepth MAXDEPTH``   
+        Maximum search depth, default is 1
 
-      ``-maxdepth MAXDEPTH``   maximum search depth, default is 1
-
-      All other long names with single dash will be passed to bash find command.
+      All the other unknown options will be passed to bash find command.
 
 
     """   
@@ -215,10 +240,10 @@ def main(argv):
     parser.add_argument("-a", "--all",
                       action="store_true",
                       default=False,
-                      help="Print all the selected folders.")
+                      help="Print all the selected folders. Equivalent to -buf")
 
 
-    parser.add_argument("--maxdepth",type=int, default=1,
+    parser.add_argument("-maxdepth",type=int, default=1,
                       help="maximum search depth, default is 1")
 
     parser.add_argument('-h', '--help', 
@@ -227,17 +252,13 @@ def main(argv):
 
     ## process unknown options
     argv.pop(0)  # remove the first, command name
-    # logging.debug("Before process are {}".format(argv))
-    sargs=long_option_dash_1to2(argv)
-    args,unk_args=parser.parse_known_args(sargs)
-    unk_args=long_option_dash_2to1(unk_args)
+    args,unk_args=parser.parse_known_args(argv)
 
     if args.help:
         help_string = parser.format_help()
         sentences=('  All other long names with single dash '+
             'will be passed to bash find command.', )
-        help_string=modify_help_string(help_string,('maxdepth',),
-                                       sentences)
+        help_string=append_help_string(help_string,sentences)
         print(help_string)
         parser.exit(0)
     
